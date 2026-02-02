@@ -12,12 +12,20 @@
 // and interact with the button on the game screen.
 // Keeping this in one object makes it easier to move,
 // resize, or restyle the button later.
-const gameBtn = {
-  x: 400, // x position (centre of the button)
+const gameBtnAllNighter = {
+  x: 250, // x position (centre of the button)
   y: 550, // y position (centre of the button)
   w: 260, // width
-  h: 90, // height
-  label: "PRESS HERE", // text shown on the button
+  h: 70, // height
+  label: "ALL NIGHTER", // text shown on the button
+};
+
+const gameBtnSleep = {
+  x: 550, // x position (centre of the button)
+  y: 550, // y position (centre of the button)
+  w: 260, // width
+  h: 70, // height
+  label: "SLEEP", // text shown on the button
 };
 
 // ------------------------------
@@ -33,23 +41,24 @@ function drawGame() {
   fill(0); // black text
   textSize(32);
   textAlign(CENTER, CENTER);
-  text("Game Screen", width / 2, 160);
+  text("It's time to make a choice...", width / 2, 160);
 
-  textSize(18);
+  textSize(17);
   text(
-    "Click the button (or press ENTER) for a random result.",
+    "It's 2 AM, you have a test early in the morning that you feel unprepared for. \nDo you pull an all nighter and study? \nOR \nDo you go to sleep and hope for the best?",
     width / 2,
-    210,
+    250,
   );
 
   // ---- Draw the button ----
   // We pass the button object to a helper function
-  drawGameButton(gameBtn);
+  drawGameButton(gameBtnAllNighter);
+  drawGameButton(gameBtnSleep);
 
   // ---- Cursor feedback ----
   // If the mouse is over the button, show a hand cursor
   // Otherwise, show the normal arrow cursor
-  cursor(isHover(gameBtn) ? HAND : ARROW);
+  cursor(isHover(gameBtnAllNighter) || isHover(gameBtnSleep) ? HAND : ARROW);
 }
 
 // ------------------------------
@@ -91,38 +100,10 @@ function drawGameButton({ x, y, w, h, label }) {
 // only when currentScreen === "game"
 function gameMousePressed() {
   // Only trigger the outcome if the button is clicked
-  if (isHover(gameBtn)) {
-    triggerRandomOutcome();
-  }
-}
-
-// ------------------------------
-// Keyboard input for this screen
-// ------------------------------
-// Allows keyboard-only interaction (accessibility + design)
-function gameKeyPressed() {
-  // ENTER key triggers the same behaviour as clicking the button
-  if (keyCode === ENTER) {
-    triggerRandomOutcome();
-  }
-}
-
-// ------------------------------
-// Game logic: win or lose
-// ------------------------------
-// This function decides what happens next in the game.
-// It does NOT draw anything.
-function triggerRandomOutcome() {
-  // random() returns a value between 0 and 1
-  // Here we use a 50/50 chance:
-  // - less than 0.5 → win
-  // - 0.5 or greater → lose
-  //
-  // You can bias this later, for example:
-  // random() < 0.7 → 70% chance to win
-  if (random() < 0.5) {
-    currentScreen = "win";
-  } else {
+  if (isHover(gameBtnAllNighter)) {
     currentScreen = "lose";
+  }
+  if (isHover(gameBtnSleep)) {
+    currentScreen = "win";
   }
 }

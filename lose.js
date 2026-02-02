@@ -18,11 +18,15 @@ function drawLose() {
 
   // Main message
   textSize(40);
-  text("You Lose!", width / 2, 300);
+  text("OH NO :(", width / 2, 300);
 
   // Instruction text
-  textSize(20);
-  text("Click or press R to return to Start.", width / 2, 360);
+  textSize(18);
+  text(
+    "You were too tired to retain any information. \nYou went in feeling groggy and fell asleep during the test. \nClick or press R to return to Start.",
+    width / 2,
+    370,
+  );
 }
 
 // ------------------------------
